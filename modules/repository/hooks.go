@@ -28,11 +28,8 @@ GIT_DIR=${GIT_DIR:-$(dirname $0)/..}
 for hook in ${GIT_DIR}/hooks/${hookname}.d/*; do
   test -x "${hook}" && test -f "${hook}" || continue
   echo "${data}" | "${hook}"
-  exitcodes="${exitcodes} $?"
-done
-
-for i in ${exitcodes}; do
-  [ ${i} -eq 0 ] || exit ${i}
+  exitcode="$?"
+  [ ${exitcode} -eq 0 ] || exit ${exitcode}
 done
 `, setting.ScriptType),
 
